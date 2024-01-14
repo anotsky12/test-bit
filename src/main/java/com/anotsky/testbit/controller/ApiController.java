@@ -7,12 +7,13 @@ import com.anotsky.testbit.repository.ApartmentRepository;
 import com.anotsky.testbit.repository.CityRepository;
 import com.anotsky.testbit.repository.HouseRepository;
 import com.anotsky.testbit.repository.StreetRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.anotsky.testbit.service.HouseService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import java.util.List;
 
@@ -20,17 +21,24 @@ import java.util.List;
 @RequestMapping("/api")
 public class ApiController {
 
-    @Autowired
-    private CityRepository cityRepository;
 
-    @Autowired
-    private StreetRepository streetRepository;
+    private final HouseService houseService;
 
-    @Autowired
-    private HouseRepository houseRepository;
+    private final CityRepository cityRepository;
 
-    @Autowired
-    private ApartmentRepository apartmentRepository;
+    private final StreetRepository streetRepository;
+
+    private final HouseRepository houseRepository;
+
+    private final ApartmentRepository apartmentRepository;
+
+    public ApiController(HouseService houseService, CityRepository cityRepository, StreetRepository streetRepository, HouseRepository houseRepository, ApartmentRepository apartmentRepository) {
+        this.houseService = houseService;
+        this.cityRepository = cityRepository;
+        this.streetRepository = streetRepository;
+        this.houseRepository = houseRepository;
+        this.apartmentRepository = apartmentRepository;
+    }
 
     // 1. Перечень городов с указанием количества домов
     @GetMapping("/cities")
@@ -63,6 +71,17 @@ public class ApiController {
             return houseRepository.getHousesWithApartmentCountByStreet(street_id);
         } else {
             return houseRepository.getHousesWithApartmentCount();
+        }
+    }
+
+    //4. Индентификатор дома по полному адрессу
+    @GetMapping("/house/search")
+    public ResponseEntity<?> getHouse(@RequestParam("query") String request) {
+        Long houseId = houseService.getHouseId(request);
+        if (houseId != null) {
+            return new ResponseEntity<>(houseId, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

@@ -4,7 +4,6 @@ import com.anotsky.testbit.dto.StreetDTO;
 import com.anotsky.testbit.model.Street;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;

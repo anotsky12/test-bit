@@ -8,5 +8,13 @@
 доступные end-point's:
  1.	/cities – перечень городов с указанием количества домов
  2.	/streets – перечень улиц с указанием количества домов с запросом по городу  /streets?city_id={city_id}
- 3.	/houses – перечень домов с указанием полного адреса и количества квартир с запросом по конкретной улице / городу  /houses?city_id={city_id} и /houses? street_id={street_id} 
+ 3.	/houses – перечень домов с указанием полного адреса и количества квартир с запросом по конкретной улице / городу  /houses?city_id={city_id} и /houses? street_id={street_id}
+ 4.	/house/search?query={param} индетификатор дома по его полному адресу
+ 4.1 Примеры запроов:
+   	    http://localhost:8080/api/house/search?query=г.+Ярославль,+2-я+Портовая+ул.,+д.+14
+        http://localhost:8080/api/house/search?query=г.+Ярославль,+Суздальское+шоссе,+д.+64
+   	    http://localhost:8080/api/house/search?query=г.+Ярославль,+Красный+съезд,+д.+6
+   	    http://localhost:8080/api/house/search?query=г.+Ярославль,+Республиканская+ул.,+д.+56+корп.+2
+   	    http://localhost:8080/api/house/search?query=г.+Ярославль,+50+лет+ВЛКСМ+ул.,+д.+4 
+   	
                   

@@ -1,19 +1,40 @@
--- Вставка данных в таблицу Cities(Города)
-INSERT INTO Cities (name) VALUES
-  ('Город1'),
-  ('Город2');
 
--- Вставка данных в таблицу Streets(Улицы)
-INSERT INTO Streets (name, city_id) VALUES
-  ('Улица1', 1),
-  ('Улица2', 2);
+-- Проверка наличия записи для города Ярославль
+SELECT * FROM cities WHERE name = 'г. Ярославль';
 
--- Вставка данных в таблицу Houses(Дома)
-INSERT INTO Houses (number, street_id) VALUES
-  (123, 1),
-  (456, 2);
+-- Добавление записи для города Ярославль
+INSERT INTO cities (name) VALUES ('г. Ярославль');
 
--- Вставка данных в таблицу Apartments(Квартиры)
-INSERT INTO Apartments (house_id, area) VALUES
-  (1, 80.5),
-  (2, 120.3);
+-- Добавление записей для улиц
+INSERT INTO streets (name, city_id)
+VALUES
+    ('2-я Портовая ул.', (SELECT id FROM cities WHERE name = 'г. Ярославль')),
+    ('Суздальское шоссе', (SELECT id FROM cities WHERE name = 'г. Ярославль')),
+    ('Фрунзе пр-т', (SELECT id FROM cities WHERE name = 'г. Ярославль')),
+    ('Красный съезд', (SELECT id FROM cities WHERE name = 'г. Ярославль')),
+    ('Республиканская ул.', (SELECT id FROM cities WHERE name = 'г. Ярославль')),
+    ('50 лет ВЛКСМ ул.', (SELECT id FROM cities WHERE name = 'г. Ярославль'));
+
+-- Добавление записей для домов
+INSERT INTO houses (number, street_id)
+VALUES
+    ('14', (SELECT id FROM streets WHERE name = '2-я Портовая ул.')),
+    ('64', (SELECT id FROM streets WHERE name = 'Суздальское шоссе')),
+    ('65', (SELECT id FROM streets WHERE name = 'Фрунзе пр-т')),
+    ('6', (SELECT id FROM streets WHERE name = 'Красный съезд')),
+    ('56 корп. 2', (SELECT id FROM streets WHERE name = 'Республиканская ул.')),
+    ('4', (SELECT id FROM streets WHERE name = '50 лет ВЛКСМ ул.'));
+
+-- Добавление записей для квартир
+INSERT INTO apartments (id, house_id, area)
+VALUES
+    ('101', (SELECT id FROM houses WHERE number = '14'), 10),
+    ('102', (SELECT id FROM houses WHERE number = '14'), 60),
+    ('103', (SELECT id FROM houses WHERE number = '14'), 63.4),
+    ('201', (SELECT id FROM houses WHERE number = '64'), 37.1),
+    ('202', (SELECT id FROM houses WHERE number = '64'), 20),
+    ('301', (SELECT id FROM houses WHERE number = '65'), 12),
+    ('401', (SELECT id FROM houses WHERE number = '6'), 33.3),
+    ('402', (SELECT id FROM houses WHERE number = '6'), 33.3),
+    ('501', (SELECT id FROM houses WHERE number = '56 корп. 2'), 76),
+    ('601', (SELECT id FROM houses WHERE number = '4'), 150);

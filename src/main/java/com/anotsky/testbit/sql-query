@@ -1,0 +1,19 @@
+-- Вставка данных в таблицу Cities(Города)
+INSERT INTO Cities (name) VALUES
+  ('Город1'),
+  ('Город2');
+
+-- Вставка данных в таблицу Streets(Улицы)
+INSERT INTO Streets (name, city_id) VALUES
+  ('Улица1', 1),
+  ('Улица2', 2);
+
+-- Вставка данных в таблицу Houses(Дома)
+INSERT INTO Houses (number, street_id) VALUES
+  (123, 1),
+  (456, 2);
+
+-- Вставка данных в таблицу Apartments(Квартиры)
+INSERT INTO Apartments (house_id, area) VALUES
+  (1, 80.5),
+  (2, 120.3);
